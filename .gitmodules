@@ -1,0 +1,21 @@
+[submodule "vim/bundle/fugitive"]
+	path = vim/bundle/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "vim/bundle/EasyMotion"]
+	path = vim/bundle/EasyMotion
+	url = https://github.com/Lokaltog/vim-easymotion.git
+[submodule "vim/bundle/NERD_Tree"]
+	path = vim/bundle/NERD_Tree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "vim/bundle/snipMate"]
+	path = vim/bundle/snipMate
+	url = https://github.com/msanders/snipmate.vim.git
+[submodule "vim/bundle/surround"]
+	path = vim/bundle/surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "vim/bundle/tComment"]
+	path = vim/bundle/tComment
+	url = https://github.com/tomtom/tcomment_vim.git
+[submodule "vim/bundle/zencoding"]
+	path = vim/bundle/zencoding
+	url = https://github.com/mattn/zencoding-vim.git

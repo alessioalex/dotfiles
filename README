@@ -1,0 +1,10 @@
+Create symlinks:
+
+ln -s ~/bin/dotfiles/bashrc ~/.bashrc
+ln -s ~/bin/dotfiles/vimrc ~/.vimrc
+ln -s ~/bin/dotfiles/vim ~/.vim
+
+Dependencies:
+
+For the taglist plugin you must install exuberant-ctags (on Ubuntu for ex: sudo apt-get install exuberant-ctags).
+To run the tidy command with the plugin you must install it (on Ubuntu it's like: sudo apt-get install tidy).

@@ -1,0 +1,31 @@
+alias l="ls -lah"
+alias www="cd ~/www"
+alias www2="cd /var/www"
+alias ..="cd .."
+alias shut="sudo shutdown -h now"
+alias reload="source ~/.bashrc"
+alias del="rm -rf"
+
+# Git aliases
+alias gb="git branch"
+alias gba="git branch -a"
+alias gc="git commit -v"
+alias gd="git diff | gedit"
+alias gl="git pull"
+alias gp="git push"
+alias gst="git status"
+
+function take() {
+    mkdir $1
+    cd $1
+}
+
+# Arguments:
+# $1 $2
+# $* all arguments
+
+# http://github.com/search?q=dotfiles&type=Repositories
+
+# Node aliases
+alias nodedev="NODE_ENV=development node $1"
+alias nodeprod="NODE_ENV=production node $1"
