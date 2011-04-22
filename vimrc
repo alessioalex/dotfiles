@@ -83,7 +83,7 @@ set smartcase  "But case-sensitive if expression contains a capital letter.
 set incsearch "Set incremental searching
 set hlsearch "Highlight search
 
-" Neet trick to highlight the 80th column (Vim 7.3) or highlight columns >80 
+" Neat trick to highlight the 80th column (Vim 7.3) or highlight columns >80 
 " Got this from here: 
 " http://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
 if exists('+colorcolumn')
@@ -236,3 +236,15 @@ let g:netrw_retmap        = 1
 let g:netrw_silent        = 1
 let g:netrw_special_syntax= 1
 
+" Neat trick to keep the current session on exit
+" " Uncomment if you want to use it
+" autocmd VimEnter * call LoadSession()
+" autocmd VimLeave * call SaveSession()
+" function! SaveSession()
+"     execute 'mksession! $HOME/.vim/sessions/session.vim'
+" endfunction
+" function! LoadSession()
+"     if argc() == 0
+"         execute 'source $HOME/.vim/sessions/session.vim'
+"     endif
+" endfunction
