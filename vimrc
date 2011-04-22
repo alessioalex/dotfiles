@@ -10,7 +10,7 @@ set visualbell " No beeping
 set nobackup " Don't make a backup before overwriting a file.
 set nowritebackup " And again.
 set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
- 
+
 "Enable file type detection
 filetype on
 filetype plugin on
@@ -77,24 +77,27 @@ set linespace=3 "Prefer a slightly higher line height
 "set textwidth=79
 "set formatoptions=qrn1
 
-"This highlights the background in a subtle red for text that goes over the
-"80 column limit (subtle in GUI mode, anyway - in terminal mode it's less so).
-"Problem with the following code is that it only works for the first file
-"opened :(
-"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-"match OverLength /\%81v.\+/
 
 set ignorecase "Case-insensitive searching.
 set smartcase  "But case-sensitive if expression contains a capital letter.
 set incsearch "Set incremental searching
 set hlsearch "Highlight search
 
+" Neet trick to highlight the 80th column (Vim 7.3) or highlight columns >80 
+" Got this from here: 
+" http://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
+if exists('+colorcolumn')
+    set colorcolumn=80
+else
+    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
+
 function ToggleHLSearch()
-       if &hls
-            set nohls
-       else
-            set hls
-       endif
+    if &hls
+        set nohls
+    else
+        set hls
+    endif
 endfunction
 "shortcut CTRL+S for toggle highlight search
 nmap <silent> <C-s> <Esc>:call ToggleHLSearch()<cr>
@@ -162,9 +165,9 @@ set wildmode=list:longest
 set completeopt=longest,menuone
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+            \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+            \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 "Map escape to ,e
 imap ,e <esc>
