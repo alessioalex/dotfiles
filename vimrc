@@ -201,16 +201,34 @@ iab Teh The
 "PHP stuff
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
+" Neat trick to keep the current session on exit
+" " Uncomment if you want to use it
+" autocmd VimEnter * call LoadSession()
+" autocmd VimLeave * call SaveSession()
+" function! SaveSession()
+"     execute 'mksession! $HOME/.vim/sessions/session.vim'
+" endfunction
+" function! LoadSession()
+"     if argc() == 0
+"         execute 'source $HOME/.vim/sessions/session.vim'
+"     endif
+" endfunction
+
+"------------------------"
+"FUZZYFINDER PLUGIN SETTINGS
+"------------------------"
+nmap ,f :FufFile<CR>
+
 "------------------------"
 "TAGLIST PLUGIN SETTINGS
 "------------------------"
-nmap ,t :TlistToggle
+nmap ,t :TlistToggle<CR>
 
 "------------------------"
 "NERDTREE PLUGIN SETTINGS
 "------------------------"
 "Shorcut for NERDTreeToggle
-nmap ,nt :NERDTreeToggle
+nmap ,nt :NERDTreeToggle<CR>
 
 "Show hidden files in NerdTree 
 let NERDTreeShowHidden=1
@@ -235,16 +253,3 @@ let g:netrw_liststyle     = 2
 let g:netrw_retmap        = 1
 let g:netrw_silent        = 1
 let g:netrw_special_syntax= 1
-
-" Neat trick to keep the current session on exit
-" " Uncomment if you want to use it
-" autocmd VimEnter * call LoadSession()
-" autocmd VimLeave * call SaveSession()
-" function! SaveSession()
-"     execute 'mksession! $HOME/.vim/sessions/session.vim'
-" endfunction
-" function! LoadSession()
-"     if argc() == 0
-"         execute 'source $HOME/.vim/sessions/session.vim'
-"     endif
-" endfunction
