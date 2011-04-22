@@ -19,3 +19,6 @@
 [submodule "vim/bundle/zencoding"]
 	path = vim/bundle/zencoding
 	url = https://github.com/mattn/zencoding-vim.git
+[submodule "vim/bundle/pastie"]
+	path = vim/bundle/pastie
+	url = https://github.com/tpope/vim-pastie.git

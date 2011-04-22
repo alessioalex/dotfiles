@@ -19,3 +19,12 @@ To run the tidy command with the plugin you must install it (on Ubuntu it's like
 
 For bash:
 Install vcprompt from here to display the version controll information in your prompt: https://github.com/xvzf/vcprompt 
+
+Note: 
+
+You can add more git submodule like this:
+
+cd ~/bin/dotfiles
+git submodule add http://github.com/pangloss/vim-javascript.git vim/bundle/vim-javascript
+git add .
+git commit -m "Added the JavaScript bundle"
