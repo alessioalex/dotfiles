@@ -1,11 +1,14 @@
-Create symlinks:
+Follow these steps:
+
+1. Create symlinks:
 
 ln -s ~/bin/dotfiles/bashrc ~/.bashrc
 ln -s ~/bin/dotfiles/vimrc ~/.vimrc
 ln -s ~/bin/dotfiles/vim ~/.vim
 
-Initialize and update submodules:
-git submodule update init 
+2. Initialize and update submodules:
+
+git submodule update --init 
 (you have to be in ~/bin/dotfiles)
 
 
