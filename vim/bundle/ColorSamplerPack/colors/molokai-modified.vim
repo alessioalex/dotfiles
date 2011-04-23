@@ -56,7 +56,7 @@ hi EasyMotionTarget guifg=#E4E500 guibg=bg gui=bold
 hi EasyMotionShade guifg=#444444 guibg=bg gui=bold
 hi Directory       guifg=#A6E22E               gui=bold
 hi Error           guifg=#960050 guibg=#1E0010
-hi ErrorMsg        guifg=#F92672 guibg=#232526 gui=bold
+hi ErrorMsg        guifg=#FFFFFF guibg=#FF0000 gui=bold
 hi Exception       guifg=#A6E22E               gui=bold
 hi Ignore          guifg=#808080 guibg=bg
 
