@@ -1,0 +1,6 @@
+console.log(
+alert
+document.getElementById(
+document.getElementsByTagName(
+document.getElementsByClassName(
+
