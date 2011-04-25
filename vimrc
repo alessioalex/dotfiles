@@ -43,7 +43,6 @@ set guioptions-=m "remove menu bar
 set guioptions-=T "remove toolbar
 "Open GVim in fullscreen
 set lines=55 columns=158
-
 "===== END GUI SETS ====="
 
 set shiftwidth=4
@@ -102,7 +101,9 @@ endfunction
 "shortcut CTRL+S for toggle highlight search
 nmap <silent> <C-s> <Esc>:call ToggleHLSearch()<cr>
 
-set scrolloff=5 "Minimum 5 lines of text above and below the cursor
+
+set cursorline " CursorLine color group for the current line
+set scrolloff=5 " Minimum 5 lines of text above and below the cursor
 
 "Hard-wrap paragraphs of text
 "press \q to format a biiig long line into multiple lines
@@ -138,12 +139,6 @@ abbrev ff :! firefox %:p &
 
 "Shortcut for editing .vimrc
 nmap ,ev :tabedit $MYVIMRC<cr>
-
-"Change zen coding plugin expansion key to ctrl + e
-let g:user_zen_expandabbr_key = '<C-e>'
-
-"Faster shortcut for commenting. Requires T-Comment plugin
-map <leader>c <c-_><c-_>
 
 "Save time
 "nmap <space> :
@@ -253,3 +248,10 @@ let g:netrw_liststyle     = 2
 let g:netrw_retmap        = 1
 let g:netrw_silent        = 1
 let g:netrw_special_syntax= 1
+
+" Zen Coding plugin 
+" Change zen coding plugin expansion key to ctrl + e
+let g:user_zen_expandabbr_key = '<C-e>'
+
+"Faster shortcut for commenting. Requires T-Comment plugin
+map <leader>c <c-_><c-_>
