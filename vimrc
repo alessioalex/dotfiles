@@ -18,7 +18,7 @@ filetype indent on
 
 syntax on " Turn on syntax highlighting
 
-set autowrite " Write the old files when switching to new files
+set autowrite " Automatically write a file when leaving a modified buffer 
 
 set ruler " Display the cursor position in the right corner
 
