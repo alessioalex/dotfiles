@@ -1,7 +1,33 @@
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+" Environment {
 
-set nocompatible "Forget compatibility with Vi. Who cares.
+    " Basics {
+        set nocompatible        " Forget compatibility with vi - must be first line
+        set background=dark     " Assume a dark background
+    " }
+    
+     " Windows Compatible {
+        " On Windows, also use '.vim' instead of 'vimfiles'
+        " this makes synchronization across (heterogeneous) systems easier.
+        if has('win32') || has('win64')
+          set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+        endif
+    " }
+
+    " Setup Bundle Support {
+        " The next two lines ensure that the ~/.vim/bundle/ system works
+        call pathogen#runtime_append_all_bundles()
+        call pathogen#helptags()
+    " }
+
+" }
+
+" General {
+    filetype plugin indent on   " Automatically detect file types
+    syntax on                   " Turn on syntax highlighting
+    set mouse=a                 " Automatically enable mouse usage
+    set autochdir               " Automatically use the current file's directory as the working directory
+    set autowrite               " Automatically write a file when leaving a modified buffer 
+" }
 
 "Set a nice title
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
@@ -10,16 +36,6 @@ set visualbell " No beeping
 set nobackup " Don't make a backup before overwriting a file.
 set nowritebackup " And again.
 set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
-
-"Enable file type detection
-filetype on
-filetype plugin on
-filetype indent on
-
-syntax on " Turn on syntax highlighting
-
-set autowrite " Automatically write a file when leaving a modified buffer 
-
 set ruler " Display the cursor position in the right corner
 
 "set mapleader = "," " Want a different mapleader than \
@@ -77,10 +93,11 @@ set hlsearch "Highlight search
 " Neat trick to highlight the 80th column (Vim 7.3) or highlight columns >80 
 " Got this from here: 
 " http://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 if exists('+colorcolumn')
     set colorcolumn=80
 else
-    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+    au BufWinEnter * let w:m2=matchadd('OverLength', '\%>80v.\+', -1)
 endif
 
 function ToggleHLSearch()
@@ -113,8 +130,6 @@ set splitbelow  "Splits window BELOW current window
 "Shortcut for editing .vimrc
 nmap ,ev :tabedit $MYVIMRC<cr>
 
-"Automatically use the current file's directory as the working directory
-set autochdir
 
 "Map code completion to ,tab
 imap ,<tab> <C-x><C-o>
