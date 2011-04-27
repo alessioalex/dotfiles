@@ -22,21 +22,29 @@
 " }
 
 " General {
+
     filetype plugin indent on   " Automatically detect file types
     syntax on                   " Turn on syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
     set autochdir               " Automatically use the current file's directory as the working directory
     set autowrite               " Automatically write a file when leaving a modified buffer 
-" }
+    set viewoptions=folds,options,cursor,unix,slash " Better unix / windows compatibility
+    set virtualedit=onemore     " Allow for cursor beyond last character
+    set history=50              " Store last 50 commands in history (default is 20)
 
-"Set a nice title
-set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
-set visualbell " No beeping
+    " Setting up the directories {
+        
+    " }
+" }
 
 set nobackup " Don't make a backup before overwriting a file.
 set nowritebackup " And again.
 set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
 set ruler " Display the cursor position in the right corner
+
+"Set a nice title
+set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
+set visualbell " No beeping
 
 "set mapleader = "," " Want a different mapleader than \
 
