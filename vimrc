@@ -22,7 +22,6 @@
 " }
 
 " General {
-
     filetype plugin indent on   " Automatically detect file types
     syntax on                   " Turn on syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
@@ -33,14 +32,51 @@
     set history=50              " Store last 50 commands in history (default is 20)
 
     " Setting up the directories {
-        
+        set nobackup                            " No backups
+        set nowritebackup                       " and again
+        set directory=$HOME/.vim/tmp//,.        " Swap files location
+        set viewdir=$HOME/.vim/sessions         " View files location
     " }
 " }
 
-set nobackup " Don't make a backup before overwriting a file.
-set nowritebackup " And again.
-set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
-set ruler " Display the cursor position in the right corner
+" Vim UI {
+    colorscheme molokai-modified    " Set the 'theme' - some alternatives would be
+                                    " vividchalk, molokai, desert, mustang, synic, blackboard
+    set tabpagemax=15               " Only show 15 tabs
+    set showmode                    " Display the current mode
+
+    set cursorline                  " CursorLine color group for the current line
+    
+    if has('cmdline_info')
+        set ruler                   " show the ruler
+        set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
+        set showcmd                 " show partial commands in status line and
+                                    " selected characters/lines in visual mode
+    endif 
+
+    if has('statusline')
+        set laststatus=2            "Always show the status line
+
+        " Broken down into easily includeable segments
+        set statusline=%<%f\                                " Filename
+        set statusline+=\ [%{getcwd()}]                     " Current dir
+        set statusline+=%w%h%m%r                            " Options
+        set statusline+=%{fugitive#statusline()}            " Git Hotness
+        set statusline+=\ [%{&ff}/%Y]                       " Filetype
+        set statusline+=\ [%{strftime(\"%l:%M:%S\ \%p,\ %a\ %b\ %d,\ %Y\")}]\ 
+                                                            " Current time
+        "set statusline+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
+        set statusline+=%=%-14.(line:%l,col:%c%V%)\ %p%%    " Right aligned file nav info
+    endif
+
+    set backspace=indent,eol,start          " Intuitive backspace
+    set linespace=3                         " Prefer a slightly higher line height
+    set number                              " Show line numbers
+    set showmatch                           " Show matching brackets/parenthesis
+    set incsearch                           " Find as you type search
+    set hlsearch                            " Highlight search terms
+" }
+
 
 "Set a nice title
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
@@ -54,11 +90,6 @@ set hidden " Switch between buffers without saving
 
 "===== GUI STUFF HERE ====="
 
-" Set the color scheme. Change this to your preference.
-" Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625
-" colorscheme desert, mustang, vividchalk are other nice options
-colorscheme molokai-modified
-
 "set guifont=Lucida_Console:h11:cANSI<CR> "Set font type and size
 set guioptions-=m "remove menu bar
 set guioptions-=T "remove toolbar
@@ -70,13 +101,7 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-set showcmd "Show command in bottom right position of the screen
-set showmode "Show current mode
 
-set number "Show line numbers
-"set relativenumber "Prefer relative line numbering?
-
-set backspace=indent,eol,start "Intuitive backspace
 
 "Indent stuff
 set smartindent
@@ -86,17 +111,10 @@ set autoindent
 vmap > >gv
 vmap < <gv
 
-set laststatus=2 "Always show the status line
-"Slick trick to show a better statusline
-set statusline=%<%t%h%m%r\ \ %a\ %{strftime(\"%c\")}%=0x%B\ \ line:%l,\ \ col:%c%V\ %P
-"Ads the fugitive branch to the status line -> %{fugitive#statusline()}
 
-set linespace=3 "Prefer a slightly higher line height
 
 set ignorecase "Case-insensitive searching.
 set smartcase  "But case-sensitive if expression contains a capital letter.
-set incsearch "Set incremental searching
-set hlsearch "Highlight search
 
 " Neat trick to highlight the 80th column (Vim 7.3) or highlight columns >80 
 " Got this from here: 
@@ -118,7 +136,6 @@ endfunction
 "shortcut CTRL+S for toggle highlight search
 nmap <silent> <C-s> <Esc>:call ToggleHLSearch()<cr>
 
-set cursorline " CursorLine color group for the current line
 set scrolloff=5 " Minimum 5 lines of text above and below the cursor
 
 set mousehide "Hide mouse when typing
@@ -196,10 +213,8 @@ autocmd BufNewFile * silent! call LoadTemplate('%:e')
 nnoremap <c-j> /<+.\{-1,}+><cr>c/+>/e<cr>
 inoremap <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
 
-" Neat trick to keep the current session on exit
-" " Uncomment if you want to use it
-" autocmd VimEnter * call LoadSession()
-" autocmd VimLeave * call SaveSession()
+" Save session on exit and then reload it
+"
 " function! SaveSession()
 "     execute 'mksession! $HOME/.vim/sessions/session.vim'
 " endfunction
@@ -208,6 +223,12 @@ inoremap <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
 "         execute 'source $HOME/.vim/sessions/session.vim'
 "     endif
 " endfunction
+" autocmd VimEnter * call LoadSession()
+" autocmd VimLeave * call SaveSession()
+" 
+" Save view on exit and then reload it
+" au BufWinLeave * silent! mkview 
+" au BufWinEnter * silent! loadview
 
 " This file contains all the abbreviations
 source $HOME/.vim/includes/abbreviations.vim 
