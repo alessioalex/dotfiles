@@ -75,8 +75,31 @@
     set showmatch                           " Show matching brackets/parenthesis
     set incsearch                           " Find as you type search
     set hlsearch                            " Highlight search terms
+    set ignorecase                          " Case-insensitive searching.
+    set smartcase                           " But case-sensitive if expression contains a capital letter.
+    set wildmenu                            " Show list instead of just completing
+    set wildmode=list:longest,full          " Command <Tab> completion, list matches, then longest common part, then all.
+    set whichwrap=b,s,h,l,<,>,[,]           " Backspace and cursor keys wrap to
+    set scrolljump=5                        " Lines to scroll when cursor leaves screen
+    set scrolloff=5                         " Minimum 5 lines of text above and below the cursor
+    set foldenable                          " Auto fold colde
+    set gdefault                            " The /g flag on :s substitutions by default
+    set list                                " View tabs, where line ends etc
+    set listchars=tab:>.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
+                                            " Tab displays as >.. & space as .
 " }
 
+" Formatting {
+    set nowrap                   " Don't wrap long lines
+    set smartindent              " Do smart autoindenting when starting a new line
+                                 " works for C-like programs
+    set autoindent               " Indent at the same level of the previous line
+    set shiftwidth=4             " Use indents of 4 spaces
+    set expandtab                " Tabs are spaces, not tabs
+    set tabstop=4                " Number of spaces that a <Tab> in the file counts for
+                                 " an indentation every 4 columns
+    set softtabstop=4            " Let backspace delete indent
+" }
 
 "Set a nice title
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
@@ -97,24 +120,9 @@ set guioptions-=T "remove toolbar
 set lines=55 columns=158
 "===== END GUI SETS ====="
 
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-
-
-
-"Indent stuff
-set smartindent
-" autoident = indent new lines by a similar amount to the one next to them
-set autoindent 
 "Fix the problem for re-selecting the text after visual indentation
 vmap > >gv
 vmap < <gv
-
-
-
-set ignorecase "Case-insensitive searching.
-set smartcase  "But case-sensitive if expression contains a capital letter.
 
 " Neat trick to highlight the 80th column (Vim 7.3) or highlight columns >80 
 " Got this from here: 
@@ -136,11 +144,9 @@ endfunction
 "shortcut CTRL+S for toggle highlight search
 nmap <silent> <C-s> <Esc>:call ToggleHLSearch()<cr>
 
-set scrolloff=5 " Minimum 5 lines of text above and below the cursor
 
 set mousehide "Hide mouse when typing
 
-set foldenable "Enable code folding
 "Shortcut to fold tags with leader (usually \) + ft
 nnoremap <leader>ft Vatzf
 
@@ -158,10 +164,6 @@ nmap ,ev :tabedit $MYVIMRC<cr>
 
 "Map code completion to ,tab
 imap ,<tab> <C-x><C-o>
-
-set wildmenu "Enhanced command line completion.
-"At command line, complete longest common string, then list alternatives
-set wildmode=list:longest
 
 "http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
 set completeopt=longest,menuone
