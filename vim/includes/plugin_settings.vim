@@ -1,5 +1,7 @@
 " All plugin customizations should be placed here
 
+let g:EasyMotion_leader_key = '<Leader>e'
+
 "------------------------"
 "FUZZYFINDER PLUGIN SETTINGS
 "------------------------"

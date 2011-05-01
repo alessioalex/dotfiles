@@ -80,7 +80,7 @@
     set wildmenu                            " Show list instead of just completing
     set wildmode=list:longest,full          " Command <Tab> completion, list matches, then longest common part, then all.
     set whichwrap=b,s,h,l,<,>,[,]           " Backspace and cursor keys wrap to
-    set scrolljump=5                        " Lines to scroll when cursor leaves screen
+    " set scrolljump=5                      " Lines to scroll when cursor leaves screen
     set scrolloff=5                         " Minimum 5 lines of text above and below the cursor
     set foldenable                          " Auto fold colde
     set gdefault                            " The /g flag on :s substitutions by default
@@ -90,39 +90,111 @@
 " }
 
 " Formatting {
-    set nowrap                   " Don't wrap long lines
-    set smartindent              " Do smart autoindenting when starting a new line
-                                 " works for C-like programs
-    set autoindent               " Indent at the same level of the previous line
-    set shiftwidth=4             " Use indents of 4 spaces
-    set expandtab                " Tabs are spaces, not tabs
-    set tabstop=4                " Number of spaces that a <Tab> in the file counts for
-                                 " an indentation every 4 columns
-    set softtabstop=4            " Let backspace delete indent
+    set nowrap                  " Don't wrap long lines
+    set smartindent             " Do smart autoindenting when starting a new line
+                                " works for C-like programs
+    set autoindent              " Indent at the same level of the previous line
+    set shiftwidth=4            " Use indents of 4 spaces
+    set expandtab               " Tabs are spaces, not tabs
+    set tabstop=4               " Number of spaces that a <Tab> in the file counts for
+                                " an indentation every 4 columns
+    set softtabstop=4           " Let backspace delete indent
+    set pastetoggle=<F12>       " Sane indentation on pastes
+    " Remove trailing whitespaces and ^M chars
+    autocmd FileType c,cpp,java,php,js,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+" }
+
+" Key (re)Mappings {
+
+    "The default leader is '\', but many people prefer ',' as it's in a standard
+    "location
+    " let mapleader = ','
+
+    " Making it so ; works like : for commands. 
+    " Saves typing and eliminates :W style typos due to lazy holding shift.
+    nnoremap ; :
+
+    " Fix for navigating long lines
+    " Wrapped lines goes down/up to next row, rather than next line in file.
+    map <A-DOWN> gj
+    map <A-UP> gk
+    imap <A-UP> <ESC>gki
+    imap <A-DOWN> <ESC>gji
+
+    " Stupid shift key fixes
+    cmap W w
+    cmap WQ wq
+    cmap wQ wq
+    cmap Q q
+    cmap Tabe tabe
+
+    " Yank from the cursor to the end of the line, to be consistent with C and D.
+    nnoremap Y y$
+
+    " Code folding options
+    nmap <leader>f0 :set foldlevel=0<CR>
+    nmap <leader>f1 :set foldlevel=1<CR>
+    nmap <leader>f2 :set foldlevel=2<CR>
+    nmap <leader>f3 :set foldlevel=3<CR>
+    nmap <leader>f4 :set foldlevel=4<CR>
+    nmap <leader>f5 :set foldlevel=5<CR>
+    nmap <leader>f6 :set foldlevel=6<CR>
+    nmap <leader>f7 :set foldlevel=7<CR>
+    nmap <leader>f8 :set foldlevel=8<CR>
+    nmap <leader>f9 :set foldlevel=9<CR>
+
+    "Shortcut to fold tags with leader (usually \) + ft
+    nnoremap <leader>ft Vatzf
+
+    " Change Working Directory to that of the current file
+    cmap cwd lcd %:p:h
+    cmap cd. lcd %:p:h
+
+    " Visual shifting (does not exit Visual mode)
+    vnoremap < <gv
+    vnoremap > >gv
+
+    " Map escape to ,e
+    imap ,e <esc>
+
+    " Shortcut for editing .vimrc
+    nmap ,ev :tabedit $MYVIMRC<cr>
+
+    " Delete all buffers except the current one (via Derek Wyatt)
+    nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<cr>
+
+    "Opens a vertical split and switches over (\v)
+    nmap <leader>v <C-w>v<C-w>l
+
+    " Jump between placeholders with CTRL+J
+    nnoremap <c-j> /<+.\{-1,}+><cr>c/+>/e<cr>
+    inoremap <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
+" }
+
+" GUI Settings {
+   " GVIM- (here instead of .gvimrc)
+    if has('gui_running')
+        set guioptions-=m          " Remove the menu & toolbar
+        set guioptions-=T
+        set lines=55 columns=158    " Set fullscreen for my desktop
+    else
+        set term=builtin_ansi       " Make arrow and other keys work
+    endif 
+" }
+
+" Use local vimrc if available {
+    if filereadable(expand("~/.vimrc.local"))
+        source ~/.vimrc.local
+    endif
 " }
 
 "Set a nice title
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
 set visualbell " No beeping
 
-"set mapleader = "," " Want a different mapleader than \
-
 set timeoutlen=500 " Lower the timeout after typing the leader key
 
 set hidden " Switch between buffers without saving
-
-"===== GUI STUFF HERE ====="
-
-"set guifont=Lucida_Console:h11:cANSI<CR> "Set font type and size
-set guioptions-=m "remove menu bar
-set guioptions-=T "remove toolbar
-"Open GVim in fullscreen
-set lines=55 columns=158
-"===== END GUI SETS ====="
-
-"Fix the problem for re-selecting the text after visual indentation
-vmap > >gv
-vmap < <gv
 
 " Neat trick to highlight the 80th column (Vim 7.3) or highlight columns >80 
 " Got this from here: 
@@ -144,26 +216,12 @@ endfunction
 "shortcut CTRL+S for toggle highlight search
 nmap <silent> <C-s> <Esc>:call ToggleHLSearch()<cr>
 
-
 set mousehide "Hide mouse when typing
-
-"Shortcut to fold tags with leader (usually \) + ft
-nnoremap <leader>ft Vatzf
 
 "Custom autocomplete dictionary
 set dictionary+=$HOME/.vim/includes/dictionary.txt "triggered by CTRL+X CTRL+K
 
-"Opens a vertical split and switches over (\v)
-nnoremap <leader>v <C-w>v<C-w>l
-
 set splitbelow  "Splits window BELOW current window
-
-"Shortcut for editing .vimrc
-nmap ,ev :tabedit $MYVIMRC<cr>
-
-
-"Map code completion to ,tab
-imap ,<tab> <C-x><C-o>
 
 "http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
 set completeopt=longest,menuone
@@ -173,32 +231,10 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
             \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-" Map escape to ,e
-imap ,e <esc>
-
-" Delete all buffers except the current one (via Derek Wyatt)
-nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<cr>
-
-" Fix for navigating long lines
-map <A-DOWN> gj
-map <A-UP> gk
-imap <A-UP> <ESC>gki
-imap <A-DOWN> <ESC>gji
 
 " Source the vimrc file after saving it 
 " so you don't have to reload VIM to see the changes
 autocmd bufwritepost .vimrc source $MYVIMRC
-
-" Tab mappings.
-" map <leader>tt :tabnew<cr>
-" map <leader>te :tabedit
-" map <leader>tc :tabclose<cr>
-" map <leader>to :tabonly<cr>
-" map <leader>tn :tabnext<cr>
-" map <leader>tp :tabprevious<cr>
-" map <leader>tf :tabfirst<cr>
-" map <leader>tl :tablast<cr>
-" map <leader>tm :tabmove
 
 "PHP stuff
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
@@ -211,9 +247,6 @@ function! LoadTemplate(extension)
 endfunction
 " And to actually call the function, we change autocmd to look like this:
 autocmd BufNewFile * silent! call LoadTemplate('%:e')
-" Jump between placeholders with CTRL+J
-nnoremap <c-j> /<+.\{-1,}+><cr>c/+>/e<cr>
-inoremap <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
 
 " Save session on exit and then reload it
 "
