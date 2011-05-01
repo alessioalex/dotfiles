@@ -4,7 +4,7 @@
         set nocompatible        " Forget compatibility with vi - must be first line
         set background=dark     " Assume a dark background
     " }
-    
+
      " Windows Compatible {
         " On Windows, also use '.vim' instead of 'vimfiles'
         " this makes synchronization across (heterogeneous) systems easier.
@@ -19,17 +19,48 @@
         call pathogen#helptags()
     " }
 
+    " Includes {
+
+        " Custom functions library
+        source $HOME/.vim/includes/functions.vim
+
+        " This file contains all the abbreviations
+        source $HOME/.vim/includes/abbreviations.vim 
+
+        " This file contains all the plugin customizations
+        source $HOME/.vim/includes/plugin_settings.vim 
+    " }
+
 " }
 
 " General {
     filetype plugin indent on   " Automatically detect file types
     syntax on                   " Turn on syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
+    set mousehide               " Hide mouse when typing
+    set splitbelow              " Splits window BELOW current window
     set autochdir               " Automatically use the current file's directory as the working directory
     set autowrite               " Automatically write a file when leaving a modified buffer 
     set viewoptions=folds,options,cursor,unix,slash " Better unix / windows compatibility
     set virtualedit=onemore     " Allow for cursor beyond last character
     set history=50              " Store last 50 commands in history (default is 20)
+    set timeoutlen=500          " Lower the timeout after typing the leader key
+    set hidden                  " Switch between buffers without saving
+    set visualbell              " No beeping
+    set dictionary+=$HOME/.vim/includes/dictionary.txt "Custom autocomplete dictionary
+
+    autocmd bufwritepost .vimrc source $MYVIMRC " Source the vimrc file after saving it 
+    " Load a template from the templates folder - function defined in
+    " includes/functions.php
+    autocmd BufNewFile * silent! call LoadTemplate('%:e')
+
+    " Save template on exit and then reload it
+    " autocmd VimEnter * call LoadSession()
+    " autocmd VimLeave * call SaveSession()
+    " 
+    " Save view on exit and then reload it
+    " au BufWinLeave * silent! mkview 
+    " au BufWinEnter * silent! loadview
 
     " Setting up the directories {
         set nobackup                            " No backups
@@ -44,9 +75,10 @@
                                     " vividchalk, molokai, desert, mustang, synic, blackboard
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
-
     set cursorline                  " CursorLine color group for the current line
-    
+    call OverLength()               " 80 column concern trick from includes/functions.vim
+    call PopupMenuLikeIDE()         " Completion popup menu like in an IDE from includes/functions.vim
+
     if has('cmdline_info')
         set ruler                   " show the ruler
         set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
@@ -69,6 +101,8 @@
         set statusline+=%=%-14.(line:%l,col:%c%V%)\ %p%%    " Right aligned file nav info
     endif
 
+    "Set a nice title
+    set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
     set backspace=indent,eol,start          " Intuitive backspace
     set linespace=3                         " Prefer a slightly higher line height
     set number                              " Show line numbers
@@ -169,6 +203,10 @@
     " Jump between placeholders with CTRL+J
     nnoremap <c-j> /<+.\{-1,}+><cr>c/+>/e<cr>
     inoremap <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
+
+    " Toggle highlight search with CTRL+S
+    " Function defined in includes/functions.vim
+    nmap <silent> <C-s> <Esc>:call ToggleHLSearch()<cr>
 " }
 
 " GUI Settings {
@@ -188,85 +226,6 @@
     endif
 " }
 
-"Set a nice title
-set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
-set visualbell " No beeping
-
-set timeoutlen=500 " Lower the timeout after typing the leader key
-
-set hidden " Switch between buffers without saving
-
-" Neat trick to highlight the 80th column (Vim 7.3) or highlight columns >80 
-" Got this from here: 
-" http://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-if exists('+colorcolumn')
-    set colorcolumn=80
-else
-    au BufWinEnter * let w:m2=matchadd('OverLength', '\%>80v.\+', -1)
-endif
-
-function ToggleHLSearch()
-    if &hls
-        set nohls
-    else
-        set hls
-    endif
-endfunction
-"shortcut CTRL+S for toggle highlight search
-nmap <silent> <C-s> <Esc>:call ToggleHLSearch()<cr>
-
-set mousehide "Hide mouse when typing
-
-"Custom autocomplete dictionary
-set dictionary+=$HOME/.vim/includes/dictionary.txt "triggered by CTRL+X CTRL+K
-
-set splitbelow  "Splits window BELOW current window
-
-"http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
-set completeopt=longest,menuone
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-            \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-            \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-
-" Source the vimrc file after saving it 
-" so you don't have to reload VIM to see the changes
-autocmd bufwritepost .vimrc source $MYVIMRC
 
 "PHP stuff
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-
-" First load the template, then load the patterns for that template
-function! LoadTemplate(extension)
-    silent! :execute '0r $HOME/.vim/templates/'. a:extension. '.tpl'
-    silent! :execute '$d'
-    silent! execute 'source $HOME/.vim/templates/'.a:extension.'.patterns.tpl'
-endfunction
-" And to actually call the function, we change autocmd to look like this:
-autocmd BufNewFile * silent! call LoadTemplate('%:e')
-
-" Save session on exit and then reload it
-"
-" function! SaveSession()
-"     execute 'mksession! $HOME/.vim/sessions/session.vim'
-" endfunction
-" function! LoadSession()
-"     if argc() == 0
-"         execute 'source $HOME/.vim/sessions/session.vim'
-"     endif
-" endfunction
-" autocmd VimEnter * call LoadSession()
-" autocmd VimLeave * call SaveSession()
-" 
-" Save view on exit and then reload it
-" au BufWinLeave * silent! mkview 
-" au BufWinEnter * silent! loadview
-
-" This file contains all the abbreviations
-source $HOME/.vim/includes/abbreviations.vim 
-
-" This file contains all the plugin customizations
-source $HOME/.vim/includes/plugin_settings.vim 
