@@ -22,3 +22,6 @@
 [submodule "vim/bundle/pastie"]
 	path = vim/bundle/pastie
 	url = https://github.com/tpope/vim-pastie.git
+[submodule "vim/bundle/delimitMate"]
+	path = vim/bundle/delimitMate
+	url = https://github.com/Raimondi/delimitMate.git

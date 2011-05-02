@@ -49,9 +49,6 @@
     set visualbell              " No beeping
     set dictionary+=$HOME/.vim/includes/dictionary.txt "Custom autocomplete dictionary
 
-    " PHP autocomplete
-    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-
     autocmd bufwritepost .vimrc source $MYVIMRC " Source the vimrc file after saving it 
     " Load a template from the templates folder - function defined in
     " includes/functions.php
