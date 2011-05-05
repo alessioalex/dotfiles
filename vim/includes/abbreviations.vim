@@ -5,6 +5,9 @@ abbrev ff :! firefox %:p &
 "same command for MAC:
 "abbrev ff :! open -a firefox.app %:p<cr>
 
+" JsLint the file using node.js
+abbrev jslint :! jslint %:p
+
 iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
 
