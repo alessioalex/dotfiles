@@ -71,8 +71,8 @@
 " }
 
 " Vim UI {
-    colorscheme molokai-modified    " Set the 'theme' - some alternatives would be
-                                    " vividchalk, molokai, desert, mustang, synic, blackboard
+    colorscheme mustang             " Set the 'theme' - some alternatives would be
+                                    " vividchalk, molokai, desert, molokai-modified, synic, blackboard
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
     set cursorline                  " CursorLine color group for the current line
