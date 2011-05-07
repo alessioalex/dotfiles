@@ -39,6 +39,7 @@
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide mouse when typing
     set splitbelow              " Splits window BELOW current window
+    set splitright              " Open new split on the right
     set autochdir               " Automatically use the current file's directory as the working directory
     set autowrite               " Automatically write a file when leaving a modified buffer 
     set viewoptions=folds,options,cursor,unix,slash " Better unix / windows compatibility
