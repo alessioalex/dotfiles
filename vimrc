@@ -13,12 +13,6 @@
         endif
     " }
 
-    " Setup Bundle Support {
-        " The next two lines ensure that the ~/.vim/bundle/ system works
-        call pathogen#runtime_append_all_bundles()
-        call pathogen#helptags()
-    " }
-
     " Includes {
 
         " Custom functions library
@@ -29,6 +23,12 @@
 
         " This file contains all the plugin customizations
         source $HOME/.vim/includes/plugin_settings.vim 
+    " }
+
+    " Setup Bundle Support {
+        " The next two lines ensure that the ~/.vim/bundle/ system works
+        call pathogen#runtime_append_all_bundles()
+        call pathogen#helptags()
     " }
 
 " }
