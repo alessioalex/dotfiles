@@ -13,7 +13,9 @@
     " }
 
     " FuzzyFinder {
+        let g:fuf_modesDisable = [ 'mrucmd' ]
         nmap ,f :FufFile<CR>
+        cmap MRU FufMruFile
     " }
 
     " Matchit {
