@@ -96,9 +96,10 @@
         set statusline+=%w%h%m%r                            " Options
         set statusline+=%{fugitive#statusline()}            " Git Hotness
         set statusline+=\ [%{&ff}/%Y]                       " Filetype
-        set statusline+=\ [%{strftime(\"%l:%M:%S\ \%p,\ %a\ %b\ %d,\ %Y\")}]\ 
+        " set statusline+=\ [%{strftime(\"%l:%M:%S\ \%p,\ %a\ %b\ %d,\ %Y\")}]\ 
                                                             " Current time
-        "set statusline+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
+        " set statusline+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
+        set statusline+=[tab=%{&ts}]
         set statusline+=%=%-14.(line:%l,col:%c%V%)\ %p%%    " Right aligned file nav info
     endif
 
