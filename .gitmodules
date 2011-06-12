@@ -31,3 +31,6 @@
 [submodule "vim/bundle/rails"]
 	path = vim/bundle/rails
 	url = https://github.com/tpope/vim-rails.git
+[submodule "vim/bundle/tabularize"]
+	path = vim/bundle/tabularize
+	url = https://github.com/godlygeek/tabular.git

@@ -5,6 +5,7 @@ alias ..="cd .."
 alias shut="sudo shutdown -h now"
 alias reload="source ~/.bashrc"
 alias del="rm -rf"
+alias r="rails"
 
 # Git aliases
 alias gb="git branch"

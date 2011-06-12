@@ -57,6 +57,11 @@
         let PHP_autoformatcomment = 1
         let php_sync_method = -1
     " }
+    " Tabularize {        
+        vmap <Leader>= :Tabularize /=<CR>
+        vmap <Leader>a :Tabularize /:<CR>
+        " vmap ,a :Tabularize /:\zs<CR>
+    " }
 
     " Taglist {
         nmap ,t :TlistToggle<CR>

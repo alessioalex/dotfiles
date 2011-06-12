@@ -138,6 +138,12 @@
     set pastetoggle=<F12>       " Sane indentation on pastes
     " Remove trailing whitespaces and ^M chars
     autocmd FileType c,cpp,java,php,js,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+    
+    " JavaScript - set 2 spaces for tabs
+    au FileType javascript set shiftwidth=2
+    au FileType javascript set tabstop=2
+    au FileType javascript set softtabstop=2
+    
 " }
 
 " Key (re)Mappings {
