@@ -50,6 +50,9 @@
     set visualbell              " No beeping
     set dictionary+=$HOME/.vim/includes/dictionary.txt "Custom autocomplete dictionary
 
+    " ejs in Node.js is kindof like html
+    au BufRead,BufNewFile *.ejs set filetype=html
+
     autocmd bufwritepost .vimrc source $MYVIMRC " Source the vimrc file after saving it 
     " Load a template from the templates folder - function defined in
     " includes/functions.php
@@ -106,7 +109,7 @@
     "Set a nice title
     set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
     set backspace=indent,eol,start          " Intuitive backspace
-    set linespace=3                         " Prefer a slightly higher line height
+    set linespace=3                         " Prefer a slightly higer line height
     set number                              " Show line numbers
     set showmatch                           " Show matching brackets/parenthesis
     set incsearch                           " Find as you type search
