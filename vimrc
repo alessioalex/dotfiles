@@ -133,11 +133,11 @@
     set smartindent             " Do smart autoindenting when starting a new line
                                 " works for C-like programs
     set autoindent              " Indent at the same level of the previous line
-    set shiftwidth=4            " Use indents of 4 spaces
+    set shiftwidth=2            " Use indents of 4 spaces
     set expandtab               " Tabs are spaces, not tabs
-    set tabstop=4               " Number of spaces that a <Tab> in the file counts for
+    set tabstop=2               " Number of spaces that a <Tab> in the file counts for
                                 " an indentation every 4 columns
-    set softtabstop=4           " Let backspace delete indent
+    set softtabstop=2           " Let backspace delete indent
     set pastetoggle=<F12>       " Sane indentation on pastes
     " Remove trailing whitespaces and ^M chars
     autocmd FileType c,cpp,java,php,js,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
