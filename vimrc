@@ -53,6 +53,9 @@
     " ejs in Node.js is kindof like html
     au BufRead,BufNewFile *.ejs set filetype=html
 
+    " strange bug in Ubuntu seems the ft is not set automatically for CS
+    au BufRead,BufNewFile *.coffee set filetype=coffee
+
     autocmd bufwritepost .vimrc source $MYVIMRC " Source the vimrc file after saving it 
     " Load a template from the templates folder - function defined in
     " includes/functions.php
